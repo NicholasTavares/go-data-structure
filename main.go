@@ -2,22 +2,23 @@ package main
 
 import (
 	"fmt"
-	"go-data-structure/linkedList"
+	"go-data-structure/stack"
 )
 
 func main() {
-    ll := linkedList.NewLinkedList()
-	ll.Push(50)
-	ll.Push(51)
-	ll.Push(8)
-	ll.Push(53)
-	ll.Insert(4 ,61)
-	ll.Insert(4 ,62)
-	ll.Push(50)
-	ll.Remove(50)
-	ll.Remove(8)
-	ll.Push(11)
-	ll.Display()
-	fmt.Printf("Tamanho da lista: %d\n", ll.Size())
-	fmt.Printf("A list está vazia? %t\n", ll.IsEmpty())
+	s := stack.NewStack()
+	s.Push(10)
+	s.Push(15)
+	s.Push(19)
+	s.Push(16)
+	s.Push(41)
+	s.Push(36)
+	s.Push(50)
+	s.Push(39)
+	s.Display()
+	fmt.Println(s.Pop())
+	fmt.Println(s.Peek())
+	s.Display()
+	s.Clear()
+	s.Display()
 }
