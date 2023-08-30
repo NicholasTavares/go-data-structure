@@ -16,7 +16,7 @@ func (b *BST) Insert(value int) {
 	} else {
 		if (value < b.root.Value){
 			b.insertNodeOnLeft(b.root, value)
-		} else {
+		} else if (value > b.root.Value){
 			b.insertNodeOnRight(b.root, value)
 		}
 	}
@@ -29,7 +29,7 @@ func (b *BST) insertNodeOnLeft (node *Node, value int) {
 	} else {
 		if(value < node.Left.Value) {
 			b.insertNodeOnLeft(node.Left, value)
-		} else {
+		} else if (value > node.Left.Value) {
 			b.insertNodeOnRight(node.Left, value)
 		}
 	}
@@ -41,7 +41,7 @@ func (b *BST) insertNodeOnRight (node *Node, value int) {
 	} else {
 		if(value > node.Right.Value) {
 			b.insertNodeOnRight(node.Right, value)
-		} else {
+		} else if(value < node.Right.Value) {
 			b.insertNodeOnLeft(node.Right, value)
 		}
 	}
