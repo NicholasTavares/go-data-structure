@@ -20,5 +20,7 @@ func main() {
 	bst.Insert(77)
 	
 	println("Quantidade de nós na árvore: ",bst.Count())
+
+	println("Procurar elemento: ",bst.Search(77))
 	
 }

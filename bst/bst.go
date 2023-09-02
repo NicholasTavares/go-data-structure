@@ -59,3 +59,20 @@ func (b *BST) countNodes (node *Node) int {
 	}
 }
 
+func (b *BST) Search(value int) bool {
+	return b.searchValue(b.root, value)
+}
+
+func (b *BST) searchValue(node *Node, value int) bool {
+	if node == nil {
+		return false
+	}
+	if value == node.Value {
+		return true
+	} else if value < node.Value {
+		return b.searchValue(node.Left, value)
+	} else {
+		return b.searchValue(node.Right, value)
+	}
+}
+
