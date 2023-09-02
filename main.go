@@ -1,24 +1,24 @@
 package main
 
 import (
-	"fmt"
-	"go-data-structure/stack"
+	"go-data-structure/bst"
 )
 
 func main() {
-	s := stack.NewStack()
-	s.Push(10)
-	s.Push(15)
-	s.Push(19)
-	s.Push(16)
-	s.Push(41)
-	s.Push(36)
-	s.Push(50)
-	s.Push(39)
-	s.Display()
-	fmt.Println(s.Pop())
-	fmt.Println(s.Peek())
-	s.Display()
-	s.Clear()
-	s.Display()
+	bst := bst.NewBST()
+	bst.Insert(60)
+	bst.Insert(50)
+	bst.Insert(51)
+	bst.Insert(49)
+	bst.Insert(49)
+	bst.Insert(28)
+	bst.Insert(39)
+	bst.Insert(65)
+	bst.Insert(98)
+	bst.Insert(1)
+	bst.Insert(8)
+	bst.Insert(77)
+	
+	println("Quantidade de nós na árvore: ",bst.Count())
+	
 }

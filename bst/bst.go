@@ -46,3 +46,16 @@ func (b *BST) insertNodeOnRight (node *Node, value int) {
 		}
 	}
 }
+
+func (b *BST) Count () int {
+	return b.countNodes(b.root)
+}
+
+func (b *BST) countNodes (node *Node) int {
+	if(node == nil) {
+		return 0
+	} else {
+		return 1 + b.countNodes(node.Left) + b.countNodes(node.Right)
+	}
+}
+
