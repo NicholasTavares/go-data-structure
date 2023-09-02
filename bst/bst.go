@@ -1,5 +1,7 @@
 package bst
 
+import "fmt"
+
 type BST struct {
     root *Node
 }
@@ -76,3 +78,71 @@ func (b *BST) searchValue(node *Node, value int) bool {
 	}
 }
 
+func (b *BST) InOrder() {
+	b.inOrderTraverseNode(b.root)
+}
+
+func (b *BST) inOrderTraverseNode(node *Node) {
+	if node != nil {
+		b.inOrderTraverseNode(node.Left)
+		fmt.Println(node.Value)
+		b.inOrderTraverseNode(node.Right)
+	}
+}
+
+
+func (b *BST) Remove(value int) *Node {
+	return b.removeValue(b.root, value)
+}
+
+
+func (b *BST) removeValue(node *Node, value int) *Node {
+	if node == nil {
+		return nil
+	}
+	
+	if value < node.Value {
+		node.Left = b.removeValue(node.Left, value)
+	} else if value > node.Value {
+		node.Right = b.removeValue(node.Right, value)
+	} else {  // value == node.Value, remover este nó
+		if node.Left == nil && node.Right == nil {  // nó folha
+			return nil
+		} else if node.Left != nil && node.Right != nil {  // nó com dois filhos
+			minNode := b.findMinValueNode(node.Right)
+			node.Value = minNode.Value
+			node.Right = b.removeValue(node.Right, minNode.Value)
+		} else {  // nó com um filho
+			if node.Left != nil {
+				return node.Left
+			} else {
+				return node.Right
+			}
+		}
+	}
+	return node
+}
+
+func (b *BST) Min() *Node {
+    return b.findMinValueNode(b.root)
+}
+
+func (b *BST) findMinValueNode(node *Node) *Node {
+    current := node
+    for current.Left != nil {
+        current = current.Left
+    }
+    return current
+}
+
+func (b *BST) Max() *Node {
+    return b.findMaxValueNode(b.root)
+}
+
+func (b *BST) findMaxValueNode(node *Node) *Node {
+    current := node
+    for current.Right != nil {
+        current = current.Right
+    }
+    return current
+}

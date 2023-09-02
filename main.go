@@ -18,9 +18,25 @@ func main() {
 	bst.Insert(1)
 	bst.Insert(8)
 	bst.Insert(77)
+	bst.Insert(100)
 	
 	println("Quantidade de nós na árvore: ",bst.Count())
 
-	println("Procurar elemento: ",bst.Search(77))
-	
+	println("Procurar elemento: ",bst.Search(98))
+
+	//remoção de folha
+
+
+	bst.InOrder()
+
+	println("Remover elemento: ",bst.Remove(8))
+
+	bst.InOrder()
+
+	println("Remover elemento: ",bst.Remove(1))
+
+	bst.InOrder()
+
+	println("Min ",bst.Min().Value)
+	println("Max ",bst.Max().Value)
 }
