@@ -1,15 +1,15 @@
 package bst
 
 type Node struct {
-    Value int
-    Left  *Node
-	Right  *Node
+    value int
+    left  *Node
+	right  *Node
 }
 
 func NewNode(value int) *Node {
     return &Node{
-        Value: value,
-        Left:  nil,
-		Right:  nil,
+        value: value,
+        left:  nil,
+		right:  nil,
     }
 }

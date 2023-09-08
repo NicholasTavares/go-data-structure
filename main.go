@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"go-data-structure/bst"
 )
 
@@ -33,10 +34,7 @@ func main() {
 
 	bst.InOrder()
 
-	println("Remover elemento: ",bst.Remove(1))
+	fmt.Println("Min ",bst.PrintNode(bst.Min()))
 
-	bst.InOrder()
-
-	println("Min ",bst.Min().Value)
-	println("Max ",bst.Max().Value)
+	fmt.Println("Max ",bst.PrintNode(bst.Max()))
 }
