@@ -22,19 +22,16 @@ func main() {
 	bst.Insert(100)
 	
 	println("Quantidade de nós na árvore: ",bst.Count())
-
-	println("Procurar elemento: ",bst.Search(98))
-
-	//remoção de folha
-
-
-	bst.InOrder()
+	
+	println("Procurar elemento: ",bst.Search(980))
 
 	println("Remover elemento: ",bst.Remove(8))
-
-	bst.InOrder()
 
 	fmt.Println("Min ",bst.PrintNode(bst.Min()))
 
 	fmt.Println("Max ",bst.PrintNode(bst.Max()))
+
+	teste :=  []int{}
+	fmt.Println("Array len ", len(teste))
+
 }

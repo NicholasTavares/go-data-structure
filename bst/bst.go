@@ -13,39 +13,27 @@ func NewBST() *BST {
 }
 
 func (b *BST) Insert(value int) {
-    if b.root == nil {
-		b.root = NewNode(value)
-	} else {
-		if value < b.root.value {
-			b.insertNodeOnLeft(b.root, value)
-		} else if value > b.root.value {
-			b.insertNodeOnRight(b.root, value)
+	node := NewNode(value)
+	var prev *Node = nil;
+	x := b.root;
+
+	for x != nil { // achando o nó que vai receber o filho
+		prev = x
+		if node.value < x.value {
+			x = x.left
+		} else {
+			x = x.right
 		}
 	}
-}
+	
+	node.parent = prev; 
 
-
-func (b *BST) insertNodeOnLeft (node *Node, value int) {
-	if node.left == nil {
-		node.left = NewNode(value)
+	if prev == nil { // árvore vazia
+		b.root = node;
+	} else if node.value < prev.value { // condicionais para decidir se o nó filho fica na esquerda ou direita
+		prev.left = node
 	} else {
-		if value < node.left.value {
-			b.insertNodeOnLeft(node.left, value)
-		} else if value > node.left.value {
-			b.insertNodeOnRight(node.left, value)
-		}
-	}
-}
-
-func (b *BST) insertNodeOnRight (node *Node, value int) {
-	if node.right == nil {
-		node.right = NewNode(value)
-	} else {
-		if value > node.right.value {
-			b.insertNodeOnRight(node.right, value)
-		} else if value < node.right.value {
-			b.insertNodeOnLeft(node.right, value)
-		}
+		prev.right = node
 	}
 }
 
@@ -61,21 +49,17 @@ func (b *BST) countNodes (node *Node) int {
 	}
 }
 
-func (b *BST) Search(value int) bool {
-	return b.searchValue(b.root, value)
-}
-
-func (b *BST) searchValue(node *Node, value int) bool {
-	if node == nil {
-		return false
+func (b *BST) Search(value int) *Node {
+	x := b.root
+	for x != nil && value != x.value {
+		if value < x.value {
+			x = x.left
+		} else {
+			x = x.right
+		}
 	}
-	if value == node.value {
-		return true
-	} else if value < node.value {
-		return b.searchValue(node.left, value)
-	} else {
-		return b.searchValue(node.right, value)
-	}
+	
+	return x;
 }
 
 func (b *BST) InOrder() {
@@ -149,7 +133,7 @@ func (b *BST) findMaxValueNode(node *Node) *Node {
 
 func (b *BST) PrintNode(n *Node) string {
     return fmt.Sprintf(
-        "Node{Value: %d, Left: %v, Right: %v}",
-        n.value, n.left, n.right,
+        "Node{Value: %d, Parent: %v, Left: %v, Right: %v}",
+        n.value, n.parent, n.left, n.right,
     )
 }
