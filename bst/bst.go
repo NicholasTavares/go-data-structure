@@ -37,17 +37,6 @@ func (b *BST) Insert(value int) {
 	}
 }
 
-func (b *BST) Count () int {
-	return b.countNodes(b.root)
-}
-
-func (b *BST) countNodes (node *Node) int {
-	if node == nil {
-		return 0
-	} else {
-		return 1 + b.countNodes(node.left) + b.countNodes(node.right)
-	}
-}
 
 func (b *BST) Search(value int) *Node {
 	x := b.root
@@ -62,49 +51,54 @@ func (b *BST) Search(value int) *Node {
 	return x;
 }
 
-func (b *BST) InOrder() {
-	b.inOrderTraverseNode(b.root)
+func (b *BST) Successor(node *Node) *Node {
+	var aux *Node
+	if node.right != nil {
+		return b.findMinValueNode(node.right)
+	} else {
+		aux = node.parent
+		for aux != nil && node == aux.right {
+			node = aux
+			aux = aux.parent
+		}
+		return aux
+	}
 }
 
-func (b *BST) inOrderTraverseNode(node *Node) {
+func (b *BST) transplant(u, v *Node) {
+	if u.parent == nil {
+		b.root = v
+	} else if u == u.parent.left {
+		u.parent.left = v
+	} else {
+		u.parent.right = v
+	}
+
+	if v != nil {
+		v.parent = u.parent
+	}
+}
+
+func (b *BST) Delete(value int) {
+	node := b.Search(value)
+	var aux *Node
 	if node != nil {
-		b.inOrderTraverseNode(node.left)
-		fmt.Println(node.value)
-		b.inOrderTraverseNode(node.right)
-	}
-}
-
-
-func (b *BST) Remove(value int) *Node {
-	return b.removeValue(b.root, value)
-}
-
-
-func (b *BST) removeValue(node *Node, value int) *Node {
-	if node == nil {
-		return nil
-	}
-	
-	if value < node.value {
-		node.left = b.removeValue(node.left, value)
-	} else if value > node.value {
-		node.right = b.removeValue(node.right, value)
-	} else {  // value == node.Value, remover este nó
-		if node.left == nil && node.right == nil {  // nó folha
-			return nil
-		} else if node.left != nil && node.right != nil {  // nó com dois filhos
-			minNode := b.findMinValueNode(node.right)
-			node.value = minNode.value
-			node.right = b.removeValue(node.right, minNode.value)
-		} else {  // nó com um filho
-			if node.left != nil {
-				return node.left
-			} else {
-				return node.right
+		if node.left == nil {
+			b.transplant(node, node.right)
+		} else if node.right == nil {
+			b.transplant(node, node.left)
+		} else {
+			aux = b.findMinValueNode(node.right)
+			if (aux != node.right) {
+				b.transplant(aux, aux.right)
+				aux.right = node.right
+				aux.right.parent = aux
 			}
+			b.transplant(node, aux)
+			aux.left = node.left
+			aux.left.parent = aux
 		}
 	}
-	return node
 }
 
 func (b *BST) Min() *Node {
